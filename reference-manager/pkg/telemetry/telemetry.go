@@ -1,6 +1,7 @@
 package telemetry
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 
@@ -8,10 +9,12 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.43.0"
 
 	"github.com/MEPhI-C22-501/arch-info-system-monorepo/reference-manager/pkg/telemetry/log"
+	"github.com/MEPhI-C22-501/arch-info-system-monorepo/reference-manager/pkg/telemetry/metrics"
 )
 
 type Telemetry struct {
-	log *slog.Logger
+	Log     *slog.Logger
+	Metrics *metrics.Metrics
 }
 
 func NewTelemetry(cfg *Config) (*Telemetry, error) {
@@ -25,11 +28,29 @@ func NewTelemetry(cfg *Config) (*Telemetry, error) {
 		return nil, fmt.Errorf("failed to initialize logger: %w", err)
 	}
 
+	metrics, err := metrics.NewMetrics(cfg.Metrics.Options(metrics.WithResource(res))...)
+	if err != nil {
+		return nil, fmt.Errorf("failed to initialize metrics: %w", err)
+	}
+
 	return &Telemetry{
-		log: log,
+		Log:     log,
+		Metrics: metrics,
 	}, nil
 }
 
-func (t *Telemetry) Logger() *slog.Logger {
-	return t.log
+func (t *Telemetry) Startup(ctx context.Context) error {
+	if err := t.Metrics.Startup(ctx); err != nil {
+		return fmt.Errorf("failed to startup metrics: %w", err)
+	}
+
+	return nil
+}
+
+func (t *Telemetry) Shutdown(ctx context.Context) error {
+	if err := t.Metrics.Shutdown(ctx); err != nil {
+		return fmt.Errorf("failed to shutdown metrics: %w", err)
+	}
+
+	return nil
 }

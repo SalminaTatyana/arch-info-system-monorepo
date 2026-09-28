@@ -27,7 +27,7 @@ func NewApp(cfg *Config) (*App, error) {
 		return nil, fmt.Errorf("failed to initialize telemetry: %w", err)
 	}
 
-	log := telemetry.Logger()
+	log := telemetry.Log
 
 	postgresClient, err := postgres.NewClient(&cfg.Databases.Postgres, log)
 	if err != nil {
@@ -57,6 +57,11 @@ func (a *App) Startup(ctx context.Context) error {
 	g, gCtx := errgroup.WithContext(ctx)
 
 	g.Go(func() error {
+		a.log.Info("telemetry startup")
+		return a.telemetry.Startup(gCtx)
+	})
+
+	g.Go(func() error {
 		a.log.Info("postgres client startup")
 		return a.postgresClient.Startup(gCtx)
 	})
@@ -78,6 +83,11 @@ func (a *App) Shutdown(ctx context.Context) error {
 	a.log.Info("application shutdown")
 
 	g, gCtx := errgroup.WithContext(ctx)
+
+	g.Go(func() error {
+		a.log.Info("telemetry shutdown")
+		return a.telemetry.Shutdown(gCtx)
+	})
 
 	g.Go(func() error {
 		a.log.Info("postgres client shutdown")

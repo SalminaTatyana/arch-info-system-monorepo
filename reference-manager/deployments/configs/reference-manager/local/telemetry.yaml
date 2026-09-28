@@ -6,3 +6,8 @@ telemetry:
   log:
     level: debug
     format: text
+
+  metrics:
+    otel_collector_endpoint: otel-collector:4167
+    push_interval: 10s
+    push_timeout: 10s
