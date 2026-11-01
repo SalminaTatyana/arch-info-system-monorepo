@@ -1,0 +1,728 @@
+СБОРКА РУЧЕК И ВЗАИМНЫХ ПОТРЕБНОСТЕЙ ПО ИНТЕГРАЦИЯМ
+Дата: 01.11.2026 | Основание: ветка main, коммит b161057
+Что внутри: полный список точек API каждой команды (из их собственных
+спецификаций) и список того, что каждая команда требует от соседей.
+
+================================================================================
+1. СВОДКА
+================================================================================
+
+| Команда | Точек API | Интеграционные точки (то, что нужно соседям) |
+|---|---:|---|
+| Модуль планирования | 47 | выгрузка партий (создание, манифест, строки), приём событий учёта работ, проекция для отчётности, контекст релиза для тестирования, квитанции и повтор публикаций |
+| Модуль учёта работ | 58 | пять выгрузок для отчётности, три точки для планирования (факт и приём проектов), создание ошибки из тестирования, обмен файлами, справочник сотрудников, очередь недоставленных |
+| Справочники | 84 | десять выгрузок справочников файлом, постраничное чтение с удалёнными записями, проверки готовности |
+| Управление тестированием | 54 | выгрузка пяти ресурсов для отчётности (объявлена, не реализована), сопоставление статусов с учётом работ |
+| Отчётность | 30 | запрос отчёта, выгрузка файла, состояние выгрузки в хранилище, свежесть данных, уведомления, журнал |
+| Инфраструктура | своих спецификаций нет | среда и эталоны: вход, объектное хранилище, очереди, телеметрия, базы; каталог контрактов; четыре примера интеграций |
+
+Знак «<== интеграционная» в списке ниже отмечает точки, которые существуют для
+связи с другими командами, а не для своего интерфейса.
+
+================================================================================
+2. ПОЛНЫЙ СПИСОК ТОЧЕК ПО КОМАНДАМ
+================================================================================
+
+
+--- МОДУЛЬ ПЛАНИРОВАНИЯ (47 точек) ---
+источник: planning-system/docs/contracts/openapi.json, planning-system/docs/contracts/runtime.openapi.json, planning-system/docs/contracts/task-tracker-receiver.openapi.json
+  api/v1/assignments
+      GET    /api/v1/assignments
+  api/v1/attachments
+      POST   /api/v1/attachments
+      DELETE /api/v1/attachments/{attachmentId}
+      GET    /api/v1/attachments/{attachmentId}
+      GET    /api/v1/attachments/{attachmentId}/content
+  api/v1/availability
+      GET    /api/v1/availability
+      PUT    /api/v1/availability/{availabilityId}
+  api/v1/downloads
+      GET    /api/v1/downloads/assignments.xlsx
+      GET    /api/v1/downloads/projects.xlsx
+  api/v1/export-options
+      GET    /api/v1/export-options
+  api/v1/exports   <== интеграционная
+      POST   /api/v1/exports
+      GET    /api/v1/exports/{batchId}
+      GET    /api/v1/exports/{batchId}/rows
+  api/v1/forecasts
+      GET    /api/v1/forecasts/{forecastId}
+  api/v1/integrations   <== интеграционная
+      POST   /api/v1/integrations/task-events
+  api/v1/me
+      GET    /api/v1/me
+  api/v1/operations
+      GET    /api/v1/operations/{operationId}
+  api/v1/planning-options
+      GET    /api/v1/planning-options
+  api/v1/planning
+      PUT    /api/v1/planning/projects/{projectId}/versions/{planVersionId}
+  api/v1/portfolios
+      GET    /api/v1/portfolios
+      POST   /api/v1/portfolios/{portfolioId}/programs
+  api/v1/project-cards
+      GET    /api/v1/project-cards
+  api/v1/project-timeline
+      GET    /api/v1/project-timeline
+  api/v1/projects
+      GET    /api/v1/projects
+      POST   /api/v1/projects
+      GET    /api/v1/projects/{projectId}
+      PATCH  /api/v1/projects/{projectId}
+      POST   /api/v1/projects/{projectId}/archive
+      GET    /api/v1/projects/{projectId}/projection
+      GET    /api/v1/projects/{projectId}/release-context
+      POST   /api/v1/projects/{projectId}/versions
+  api/v1/publications   <== интеграционная
+      GET    /api/v1/publications/{publicationId}
+      POST   /api/v1/publications/{publicationId}/receipt
+      POST   /api/v1/publications/{publicationId}/retry
+  api/v1/resource-options
+      GET    /api/v1/resource-options
+  api/v1/versions
+      GET    /api/v1/versions/{versionId}
+      POST   /api/v1/versions/{versionId}/activate
+      POST   /api/v1/versions/{versionId}/assignments
+      PATCH  /api/v1/versions/{versionId}/assignments/{assignmentId}
+      POST   /api/v1/versions/{versionId}/confirm-resources
+      POST   /api/v1/versions/{versionId}/decisions
+      PUT    /api/v1/versions/{versionId}/draft
+      PUT    /api/v1/versions/{versionId}/forecast-inputs
+      POST   /api/v1/versions/{versionId}/forecasts
+      POST   /api/v1/versions/{versionId}/submit
+      PATCH  /api/v1/versions/{versionId}/timeline
+  api/v1/workspace
+      GET    /api/v1/workspace
+
+--- МОДУЛЬ УЧЁТА РАБОТ (58 точек) ---
+источник: task-tracker/docs/block-g-api-and-events/openapi.yaml
+  admin/access
+      GET    /admin/access
+      PUT    /admin/access/{userId}
+  admin/directory   <== интеграционная
+      GET    /admin/directory
+  admin/directory/sync   <== интеграционная
+      POST   /admin/directory/sync
+  admin/outbox   <== интеграционная
+      GET    /admin/outbox
+  admin/outbox/retry   <== интеграционная
+      POST   /admin/outbox/{id}/retry
+  admin/permissions
+      GET    /admin/permissions
+      PUT    /admin/permissions/{role}/{permission}
+  admin/priorities
+      POST   /admin/priorities
+      PATCH  /admin/priorities/{id}
+  admin/severity-mapping
+      GET    /admin/severity-mapping
+      PUT    /admin/severity-mapping/{severity}
+  admin/statuses
+      POST   /admin/statuses
+      PATCH  /admin/statuses/{id}
+  admin/types
+      PATCH  /admin/types/{type}
+  bugs   <== интеграционная
+      POST   /bugs
+  exports/work-items   <== интеграционная
+      POST   /exports/work-items
+  imports/work-items   <== интеграционная
+      POST   /imports/work-items
+  iterations
+      GET    /iterations
+      POST   /iterations
+      GET    /iterations/{id}
+      PATCH  /iterations/{id}
+  iterations/activate
+      POST   /iterations/{id}/activate
+  iterations/capacity
+      PUT    /iterations/{id}/capacity
+  iterations/complete
+      POST   /iterations/{id}/complete
+  iterations/items
+      DELETE /iterations/{id}/items/{itemId}
+      PUT    /iterations/{id}/items/{itemId}
+  me
+      GET    /me
+  notifications
+      GET    /notifications
+      PATCH  /notifications/{id}
+  planning/projects   <== интеграционная
+      DELETE /planning/projects/{externalId}
+      PUT    /planning/projects/{externalId}
+  planning/projects/facts   <== интеграционная
+      GET    /planning/projects/{externalId}/facts
+  priorities
+      GET    /priorities
+  reports/history   <== интеграционная
+      GET    /reports/history
+  reports/iterations   <== интеграционная
+      GET    /reports/iterations
+  reports/statuses   <== интеграционная
+      GET    /reports/statuses
+  reports/time-logs   <== интеграционная
+      GET    /reports/time-logs
+  reports/work-items   <== интеграционная
+      GET    /reports/work-items
+  statuses
+      GET    /statuses
+  types
+      GET    /types
+  users
+      GET    /users
+  work-items
+      GET    /work-items
+      POST   /work-items
+      DELETE /work-items/{id}
+      GET    /work-items/{id}
+      PATCH  /work-items/{id}
+  work-items/attachments
+      GET    /work-items/{id}/attachments
+      POST   /work-items/{id}/attachments
+      DELETE /work-items/{id}/attachments/{attachmentId}
+      GET    /work-items/{id}/attachments/{attachmentId}
+  work-items/comments
+      GET    /work-items/{id}/comments
+      POST   /work-items/{id}/comments
+      DELETE /work-items/{id}/comments/{commentId}
+      PATCH  /work-items/{id}/comments/{commentId}
+  work-items/history
+      GET    /work-items/{id}/history
+  work-items/time-logs
+      GET    /work-items/{id}/time-logs
+      POST   /work-items/{id}/time-logs
+
+--- СПРАВОЧНИКИ (84 точек) ---
+источник: reference-manager/backend/api/openapi/v1/absence/openapi.yaml, reference-manager/backend/api/openapi/v1/assignment/openapi.yaml, reference-manager/backend/api/openapi/v1/country/openapi.yaml, reference-manager/backend/api/openapi/v1/currency/openapi.yaml, reference-manager/backend/api/openapi/v1/employee/openapi.yaml, reference-manager/backend/api/openapi/v1/grade/openapi.yaml, reference-manager/backend/api/openapi/v1/health/openapi.yaml, reference-manager/backend/api/openapi/v1/org_unit/openapi.yaml, reference-manager/backend/api/openapi/v1/position/openapi.yaml, reference-manager/backend/api/openapi/v1/project_role/openapi.yaml, reference-manager/backend/api/openapi/v1/salary/openapi.yaml
+  v1/absences
+      GET    /v1/absences/
+      POST   /v1/absences/
+      DELETE /v1/absences/{absenceID}
+      GET    /v1/absences/{absenceID}
+      PATCH  /v1/absences/{absenceID}
+  v1/absences/export   <== интеграционная
+      POST   /v1/absences/export
+  v1/absences/revisions
+      GET    /v1/absences/{absenceID}/revisions
+      GET    /v1/absences/{absenceID}/revisions/{revisionNumber}
+  v1/assignments
+      GET    /v1/assignments/
+      POST   /v1/assignments/
+      DELETE /v1/assignments/{assignmentID}
+      GET    /v1/assignments/{assignmentID}
+      PATCH  /v1/assignments/{assignmentID}
+  v1/assignments/export   <== интеграционная
+      POST   /v1/assignments/export
+  v1/assignments/revisions
+      GET    /v1/assignments/{assignmentID}/revisions
+      GET    /v1/assignments/{assignmentID}/revisions/{revisionNumber}
+  v1/countries
+      GET    /v1/countries/
+      POST   /v1/countries/
+      DELETE /v1/countries/{countryID}
+      GET    /v1/countries/{countryID}
+      PATCH  /v1/countries/{countryID}
+  v1/countries/export   <== интеграционная
+      POST   /v1/countries/export
+  v1/countries/revisions
+      GET    /v1/countries/{countryID}/revisions
+      GET    /v1/countries/{countryID}/revisions/{revisionNumber}
+  v1/currencies
+      GET    /v1/currencies/
+      POST   /v1/currencies/
+      DELETE /v1/currencies/{currencyID}
+      GET    /v1/currencies/{currencyID}
+      PATCH  /v1/currencies/{currencyID}
+  v1/currencies/export   <== интеграционная
+      POST   /v1/currencies/export
+  v1/currencies/revisions
+      GET    /v1/currencies/{currencyID}/revisions
+      GET    /v1/currencies/{currencyID}/revisions/{revisionNumber}
+  v1/employees
+      GET    /v1/employees/
+      POST   /v1/employees/
+      DELETE /v1/employees/{employeeID}
+      GET    /v1/employees/{employeeID}
+      PATCH  /v1/employees/{employeeID}
+  v1/employees/export   <== интеграционная
+      POST   /v1/employees/export
+  v1/employees/dismiss
+      POST   /v1/employees/{employeeID}/dismiss
+  v1/employees/revisions
+      GET    /v1/employees/{employeeID}/revisions
+      GET    /v1/employees/{employeeID}/revisions/{revisionNumber}
+  v1/employees/syncAccount
+      POST   /v1/employees/{employeeID}/syncAccount
+  v1/grades
+      GET    /v1/grades/
+      POST   /v1/grades/
+      DELETE /v1/grades/{gradeID}
+      GET    /v1/grades/{gradeID}
+      PATCH  /v1/grades/{gradeID}
+  v1/grades/export   <== интеграционная
+      POST   /v1/grades/export
+  v1/grades/revisions
+      GET    /v1/grades/{gradeID}/revisions
+      GET    /v1/grades/{gradeID}/revisions/{revisionNumber}
+  v1/health/livez   <== интеграционная
+      GET    /v1/health/livez
+  v1/health/readyz   <== интеграционная
+      GET    /v1/health/readyz
+  v1/org_units
+      GET    /v1/org_units/
+      POST   /v1/org_units/
+      DELETE /v1/org_units/{orgUnitID}
+      GET    /v1/org_units/{orgUnitID}
+      PATCH  /v1/org_units/{orgUnitID}
+  v1/org_units/export   <== интеграционная
+      POST   /v1/org_units/export
+  v1/org_units/revisions
+      GET    /v1/org_units/{orgUnitID}/revisions
+      GET    /v1/org_units/{orgUnitID}/revisions/{revisionNumber}
+  v1/positions
+      GET    /v1/positions/
+      POST   /v1/positions/
+      DELETE /v1/positions/{positionID}
+      GET    /v1/positions/{positionID}
+      PATCH  /v1/positions/{positionID}
+  v1/positions/export   <== интеграционная
+      POST   /v1/positions/export
+  v1/positions/revisions
+      GET    /v1/positions/{positionID}/revisions
+      GET    /v1/positions/{positionID}/revisions/{revisionNumber}
+  v1/project_roles
+      GET    /v1/project_roles/
+      POST   /v1/project_roles/
+      DELETE /v1/project_roles/{projectRoleID}
+      GET    /v1/project_roles/{projectRoleID}
+      PATCH  /v1/project_roles/{projectRoleID}
+  v1/project_roles/export   <== интеграционная
+      POST   /v1/project_roles/export
+  v1/project_roles/revisions
+      GET    /v1/project_roles/{projectRoleID}/revisions
+      GET    /v1/project_roles/{projectRoleID}/revisions/{revisionNumber}
+  v1/salaries
+      GET    /v1/salaries/
+      POST   /v1/salaries/
+      DELETE /v1/salaries/{salaryID}
+      GET    /v1/salaries/{salaryID}
+      PATCH  /v1/salaries/{salaryID}
+  v1/salaries/export   <== интеграционная
+      POST   /v1/salaries/export
+  v1/salaries/revisions
+      GET    /v1/salaries/{salaryID}/revisions
+      GET    /v1/salaries/{salaryID}/revisions/{revisionNumber}
+
+--- УПРАВЛЕНИЕ ТЕСТИРОВАНИЕМ (54 точек) ---
+источник: qa/api/openapi/v1/openapi.yaml
+  admin/classifiers
+      GET    /admin/classifiers
+      POST   /admin/classifiers
+      PUT    /admin/classifiers/{kind}/{code}
+  admin/environments
+      GET    /admin/environments
+      POST   /admin/environments
+      PUT    /admin/environments/{id}
+  admin/tracker-status-mapping   <== интеграционная
+      GET    /admin/tracker-status-mapping
+      PUT    /admin/tracker-status-mapping
+  defects
+      GET    /defects
+      POST   /defects
+      GET    /defects/{id}
+      PUT    /defects/{id}
+  defects/comments
+      POST   /defects/{id}/comments
+  defects/history
+      GET    /defects/{id}/history
+  defects/transitions
+      POST   /defects/{id}/transitions
+  livez
+      GET    /livez
+  readyz
+      GET    /readyz
+  reports
+      GET    /reports/{resource}
+  runs
+      GET    /runs
+      POST   /runs
+      DELETE /runs/{id}
+      GET    /runs/{id}
+      POST   /runs/{id}/{action}
+  runs/rerun
+      POST   /runs/{id}/rerun
+  runs/results
+      GET    /runs/{id}/results
+      PUT    /runs/{id}/results/{resultId}
+  runs/results/bulk-status
+      POST   /runs/{id}/results/bulk-status
+  suites
+      GET    /suites
+      POST   /suites
+      GET    /suites/{id}
+      PUT    /suites/{id}
+      POST   /suites/{id}/{action}
+  templates
+      GET    /templates
+      POST   /templates
+      GET    /templates/{id}
+      PUT    /templates/{id}
+  test-cases
+      GET    /test-cases
+      POST   /test-cases
+      DELETE /test-cases/{id}
+      GET    /test-cases/{id}
+      PUT    /test-cases/{id}
+  test-cases/copy
+      POST   /test-cases/copy
+  test-cases/export
+      POST   /test-cases/export
+  test-cases/import
+      POST   /test-cases/import
+  test-cases/status
+      POST   /test-cases/{id}/status
+  test-cases/versions
+      GET    /test-cases/{id}/versions
+  test-plans
+      GET    /test-plans
+      POST   /test-plans
+      GET    /test-plans/{id}
+      PUT    /test-plans/{id}
+      POST   /test-plans/{id}/{action}
+  test-plans/cases
+      POST   /test-plans/{id}/cases
+      DELETE /test-plans/{id}/cases/{caseId}
+  test-plans/summary
+      GET    /test-plans/{id}/summary
+
+--- ОТЧЁТНОСТЬ (30 точек) ---
+источник: reports/api/openapi/v1/openapi.yaml
+  audit
+      GET    /audit
+  embed/iterations
+      GET    /embed/iterations/{iterationId}
+  etl/batches   <== интеграционная
+      GET    /etl/batches
+  etl/loads   <== интеграционная
+      POST   /etl/loads
+  etl/reconciliations   <== интеграционная
+      GET    /etl/reconciliations
+  exports   <== интеграционная
+      GET    /exports
+      POST   /exports
+      GET    /exports/{exportId}
+  exports/file   <== интеграционная
+      GET    /exports/{exportId}/file
+  freshness   <== интеграционная
+      GET    /freshness
+  health/livez
+      GET    /health/livez
+  health/readyz
+      GET    /health/readyz
+  notifications   <== интеграционная
+      GET    /notifications
+      PATCH  /notifications/{notificationId}
+  reports
+      GET    /reports
+      GET    /reports/{reportId}
+  reports/drilldown   <== интеграционная
+      POST   /reports/{reportId}/drilldown
+  reports/print   <== интеграционная
+      POST   /reports/{reportId}/print
+  reports/query   <== интеграционная
+      POST   /reports/{reportId}/query
+  subscriptions
+      GET    /subscriptions
+      POST   /subscriptions
+      DELETE /subscriptions/{subscriptionId}
+      GET    /subscriptions/{subscriptionId}
+      PATCH  /subscriptions/{subscriptionId}
+  subscriptions/deliveries
+      GET    /subscriptions/{subscriptionId}/deliveries
+  views
+      GET    /views
+      POST   /views
+      DELETE /views/{viewId}
+      GET    /views/{viewId}
+      PATCH  /views/{viewId}
+
+
+================================================================================
+3. ЧТО КАЖДАЯ КОМАНДА ТРЕБУЕТ ОТ СОСЕДЕЙ
+================================================================================
+
+ПЛАНИРОВАНИЕ ТРЕБУЕТ:
+  от учёта работ — mapping проектов, эпиков и итераций, внешний источник факта,
+    ревизию и признак удаления записи. Ожидаемые точки: приём проектов и чтение
+    фактов. Состояние: mapping не подписан обеими сторонами (у них это решение
+    D-01), путь закрыт флагом согласования, факт считается недоступным.
+  от справочников — кадровые данные и ставки для расчёта ресурсов. Ожидаемая
+    точка: чтение сотрудников и должностей с версией. Состояние: адрес и версия
+    сервиса не выданы (у них пункт INT-02, вопрос D-03); обязательная очередь
+    НСИ из решения исключена.
+  от инфраструктуры — вход: издатель токенов, ключи, клиент веб-приложения,
+    адрес перенаправления; очередь и права на неё; бакет для вложений; адрес
+    сервиса оповещений с подтверждением получения. Состояние: вход и бакет
+    доступны (её часть влита), сервис оповещений не назначен ни у кого —
+    владельца нет.
+  от отчётности — приёмка проекции и выгрузки: ответ получен в задаче #147,
+    уточнения от 29.10 у них в реестре, общего клиента и стенда ещё нет.
+
+УЧЁТ РАБОТ ТРЕБУЕТ:
+  от справочников — сотрудники и оргструктура, связанный идентификатор учётной
+    записи и признак активности. Ожидаемая точка: постраничное чтение
+    справочников. Состояние: клиент написан, но сервис отдаёт ответ другого
+    формата — расхождение живое, ответа нет.
+  от тестирования — согласованная шкала серьёзности и начальный приоритет
+    (их решение DEC-TT-04), связка дефекта с задачей.
+  от отчётности — пакетная выгрузка: их решение — постраничное чтение через
+    REST, файловая выгрузка требует отдельного согласования (DEC-TT-06,
+    у отчётности это открытый вопрос).
+  от инфраструктуры — приватный бакет (получен), вход (подключён и проверен),
+    очередь событий: в сборке службы клиента очереди не найдено, публиковать
+    физически нечем.
+
+СПРАВОЧНИКИ ТРЕБУЮТ:
+  от инфраструктуры — стенд и кластер, две учётные записи с разными правами,
+    вход, объектное хранилище, телеметрию. Состояние: стенд собственный,
+    в общей среде у них пока только база.
+  от потребителей (учёт работ, планирование, тестирование, отчётность) —
+    подтверждение формата: их документы описывают выгрузки и «каталог
+    потребителей», ответа ни от одной стороны нет.
+  от входа в систему — жизненный цикл учётной записи: создание при приёме и
+    отключение при увольнении. Реализовано у них отдельным модулем
+    синхронизации, разделение источников истины соблюдено.
+
+ТЕСТИРОВАНИЕ ТРЕБУЕТ:
+  от учёта работ — создание ошибки из дефекта (идемпотентно), чтение задачи и
+    комментариев опросом раз в минуту, учётная запись чтения. Состояние:
+    создание ошибки есть в спецификации и коде учёта работ; учётная запись
+    чтения не выдана — их открытый вопрос, без неё чтение невозможно.
+  от планирования — контекст релиза: релизы, вехи, эпики, фичи и проекция
+    итераций утверждённой версии плана. Ожидаемая точка: чтение контекста
+    релиза с ролью на чтение. Состояние: в спецификации планирования точка
+    объявлена, кода нет — их открытый вопрос.
+  от отчётности — приём пяти ресурсов (кейсы, планы, прогоны, результаты,
+    дефекты) постранично с отбором по времени изменения. Состояние: такой
+    выгрузки у тестирования нет вовсе, приёмник у отчётности описан.
+  от инфраструктуры — вход (не выдан: модуль работает в демонстрационном
+    режиме), база и очередь для событий.
+
+ОТЧЁТНОСТЬ ТРЕБУЕТ:
+  от планирования — неизменяемая партия плана (плановые часы, потребность,
+    доступность, назначения, прогноз) и оперативная проекция проекта.
+    Ожидаемые точки: создание партии, манифест, страницы строк, проекция
+    проекта. Состояние: реализовано, обмен подтверждён обеими сторонами.
+  от учёта работ — задачи, итерации, трудозатраты, статусы и история изменений
+    под служебной ролью, до 500 строк на страницу. Ожидаемые точки: пять
+    выгрузок. Состояние: реализовано, проверено запросом на работающем стенде.
+  от справочников — кадровые наборы (сотрудники, подразделения, должности,
+    роли, грейды) и выгрузка файлом. Ожидаемые точки: постраничное чтение с
+    удалёнными записями и десять выгрузок файлом. Состояние: реализовано,
+    сквозной прогон не показан.
+  от тестирования — те же пять ресурсов для первичной загрузки и сверки.
+    Состояние: не реализовано у тестирования.
+  от инфраструктуры — база с репликой (в общей среде поднимается), бакет
+    отчётности, группы чтения топиков учёта работ и тестирования, общий клиент,
+    развёртывание. Состояние: влито, заявки можно закрывать по факту.
+  от заказчика — толкование оперативного контура на реплике, база нормирования
+    дефектов, кто видит трудозатраты других сотрудников. Решения нет.
+
+ИНФРАСТРУКТУРА ОТДАЁТ (и чего от неё требуют остальные):
+  вход: издатель токенов, 14 клиентов, набор ролей, ключи проверки подписи;
+  очереди: доменные события и группы чтения по командам; состав событий
+    определяют сами команды, готового каталога событий от них нет;
+  объектное хранилище: по бакету на команду, отдельный ключ и политика;
+  базы: по базе на команду, у отчётности — с репликой; чужие базы закрыты;
+  телеметрия: приём сигналов и хранилище;
+  каталог контрактов: для каждой спецификации владелец, версия, базовый путь и
+    признак «сервер есть / только документ»;
+  четыре рабочих примера интеграций, проверяются одной командой;
+  мок-сервер: только описание, самого мок-сервера в репозитории нет.
+
+================================================================================
+4. РАЗРЫВЫ: ТОЧКА ОЖИДАЕТСЯ, НО НЕ ОТДАЁТСЯ
+================================================================================
+
+ 1. Учётная запись чтения для тестирования в учёте работ не выдана — без неё
+    чтение задач и комментариев невозможно.
+ 2. Контекст релиза для тестирования объявлен в спецификации планирования,
+    но не реализован — привязка тест-планов к релизам не подтверждается.
+ 3. Выгрузка пяти ресурсов у тестирования не реализована, при этом отчётность
+    её ждёт: источник аналитического контура пуст.
+ 4. Mapping проектов, эпиков и итераций между планированием и учётом работ не
+    подписан обеими сторонами, путь факта закрыт флагом согласования в коде.
+ 5. Формат ответа справочников для учёта работ не совпадает с ожидаемым:
+    нужны связанный идентификатор учётной записи и признак активности.
+ 6. Адрес и версия справочников для планирования не выданы — расчёт ресурсов
+    по кадровым данным не подключён.
+ 7. Владелец сервиса оповещений не назначен ни у одной команды: приём
+    уведомлений о готовности выгрузки не с кем согласовать.
+ 8. Подключение отчётности к общему файлу запуска отсутствует: её стенд
+    поднимается отдельно, со своим входом и своими секретами.
+ 9. Контракт приёмника событий планирования помечен в каталоге как
+    «предложение потребителя», а не контракт поставщика, — сверить по нему
+    с учётом работ нельзя.
+10. Мок-сервер для параллельной разработки описан, но не реализован: команды,
+    ждущие мок соседа, продолжают работать на своих заглушках.
+
+================================================================================
+5. КАК ПРОВЕРИТЬ
+================================================================================
+
+1. Полные списки точек пересобрать из спецификаций:
+     планирование .... planning-system/docs/contracts/*.json
+     учёт работ ...... task-tracker/docs/block-g-api-and-events/openapi.yaml
+     справочники ..... reference-manager/backend/api/openapi/v1/*/
+     тестирование .... qa/api/openapi/v1/openapi.yaml
+     отчётность ...... reports/api/openapi/v1/openapi.yaml
+     каталог ......... infra/contracts/catalog.yaml
+2. Живая проверка обмена на работающем стенде:
+     выгрузки учёта работ для отчётности:
+       curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer <токен>" \
+         http://localhost:8082/api/v1/reports/work-items
+     создание ошибки из тестирования (нужна учётная запись, её нет):
+       curl -s -o /dev/null -w '%{http_code}' -X POST -H "Authorization: Bearer <токен>" \
+         -H 'Content-Type: application/json' -d '{}' http://localhost:8082/api/v1/bugs
+     выгрузка справочника файлом:
+       curl -s -o /dev/null -w '%{http_code}' -X POST -H "Authorization: Bearer <токен>" \
+         http://localhost:8083/v1/employees/export
+3. Сверить ожидания и поставку построчно: взять таблицы раздела 3 и проверить,
+   что у соседа точка существует и отвечает под нужной ролью.
+
+================================================================================
+
+==============================================================================
+6. МОИ ВОПРОСЫ (требуют ответа команды, инфраструктуры или заказчика)
+==============================================================================
+
+MY-01 → reports (сейчас)
+   Вопрос: Предагрегация объявлена только у куба часов работ — это решение или незакрытая часть?
+   Чем подтверждается: в моделях куба объявление предагрегации встречается один раз (reports/pilots/cube/model/TimeLogs.js)
+   Что нужно в ответ: решение с обоснованием либо предагрегации по остальным кубам
+
+MY-02 → reports (сейчас)
+   Вопрос: Какая задержка от источника до отчёта у оперативного и аналитического контуров, и где она записана числом?
+   Чем подтверждается: расписание пересборки задано только у одного куба, описания задержки нет
+   Что нужно в ответ: число и место в документе
+
+MY-03 → reports (сейчас)
+   Вопрос: Почему общий вход отчётного слоя в куб разрешает только часы работ и как тогда на дашборды попадут план-факт и остальные отчёты?
+   Чем подтверждается: правило области в reports/pilots/cube/access.js; живая проверка: запрос плана-факта через вход отчётного слоя отклонён
+   Что нужно в ответ: расширение доступа либо письменное ограничение
+
+MY-04 → reports (сейчас)
+   Вопрос: Из 30 точек спецификации в исполняемом срезе работают четыре — какие точки будут реализованы к защите, включая выгрузку отчёта файлом?
+   Чем подтверждается: reports/api/openapi/v1/openapi.yaml против reports/pilots/api.py (здоровье и одна выгрузка)
+   Что нужно в ответ: перечень точек со сроками
+
+MY-05 → reports (до защиты)
+   Вопрос: Замер описывает один куб и тёплый режим, контейнерный стек не проверен — где числа по остальным кубам и по холодному старту?
+   Чем подтверждается: раздел docs: замедление заявлено как «только предагрегация», контейнерный стек не проверен
+   Что нужно в ответ: таблица по кубам
+
+MY-06 → task-tracker (сейчас)
+   Вопрос: Где шаг миграций: при запуске общей сборкой схема не накатывается и служба падает на отсутствующей таблице. Кто отвечает за накат — модуль или среда?
+   Чем подтверждается: падение на отсутствующей таблице при чистой базе; в общем файле подключения шага миграций нет, у соседей он есть
+   Что нужно в ответ: включить шаг миграций в запуск
+
+MY-07 → task-tracker (сейчас)
+   Вопрос: Почему интерфейс требует узел с именем backend, которого в общей среде нет (служба называется иначе)?
+   Чем подтверждается: интерфейс завершается с ошибкой поиска узла в настройке веб-сервера
+   Что нужно в ответ: исправить имя узла или добавить псевдоним
+
+MY-08 → task-tracker (сейчас)
+   Вопрос: События заявлены, а клиента брокера в сборке службы нет — как публикуются события и что делает очередь недоставленных без брокера?
+   Чем подтверждается: в файле сборки службы нет зависимости брокера
+   Что нужно в ответ: добавить клиент либо снять claim на события
+
+MY-09 → qa (сейчас)
+   Вопрос: Общий вход влит — почему модуль остаётся в демонстрационном режиме и когда переключится на общий вход?
+   Чем подтверждается: в настройках модуля демонстрационный режим входа; в коде отмечено, что вход не выдан
+   Что нужно в ответ: план переключения с датой
+
+MY-10 → qa (сейчас)
+   Вопрос: Обязательные функции (экспорт и импорт кейсов, повтор упавших, массовая смена статусов, вложения) помечены как планируемые — какой объём и срок?
+   Чем подтверждается: перечень планируемых точек в их же спецификации
+   Что нужно в ответ: объём и дата
+
+MY-11 → qa (сейчас)
+   Вопрос: Кто и когда делает выгрузку пяти ресурсов для отчётности — от неё зависит аналитический контур?
+   Чем подтверждается: отчётность ждёт выгрузку, у тестирования она не реализована
+   Что нужно в ответ: дата и ответственный
+
+MY-12 → reference-manager (до защиты)
+   Вопрос: Два стенда — свой полный и база в общей среде: какой эталонный для защиты и что показывать?
+   Чем подтверждается: свой файл запуска (служба, интерфейс, свой вход) и база, подключённая в общую среду
+   Что нужно в ответ: решение
+
+MY-13 → reference-manager (до защиты)
+   Вопрос: Интерфейс перенаправляет на порт 8080 независимо от настройки — это ошибка конфигурации или так задумано?
+   Чем подтверждается: ответ на корень интерфейса перенаправляет на чужой порт
+   Что нужно в ответ: исправить либо объяснить
+
+MY-14 → planning-system (сейчас)
+   Вопрос: В файле запуска нет ни одного адреса соседей — обмены считаются несделанными или отложенными? Когда появятся реальные адреса?
+   Чем подтверждается: в файле запуска только база и CORS; отдельный файл с входом поднимает свой издатель токенов
+   Что нужно в ответ: план с датой
+
+MY-15 → planning-system и task-tracker (сейчас)
+   Вопрос: Кто владелец контракта факта: приёмник планирования или поставщик учёта работ?
+   Чем подтверждается: контракт приёмника помечен в каталоге как предложение потребителя, а не контракт поставщика
+   Что нужно в ответ: подписать mapping и указать владельца
+
+MY-16 → planning-system и reference-manager (сейчас)
+   Вопрос: Кадровые данные для расчёта ресурсов: кто выдаёт потребителю адрес и версию сервиса?
+   Чем подтверждается: в реестре планирования адрес и версия числятся невыданными
+   Что нужно в ответ: выдать адрес и версию
+
+MY-17 → infra (сейчас)
+   Вопрос: Кто закрепляет порты за командами: в разных файлах запуска совпадают 8080 и 8081, одновременно команды не поднимаются
+   Чем подтверждается: файлы запуска планирования, учёта работ, справочников и пилотного стенда отчётности
+   Что нужно в ответ: распределить порты и записать в документах среды
+
+MY-18 → infra (сейчас)
+   Вопрос: Общий запуск поднимает не всю систему (нет планирования, отчётности, службы справочников) — это ожидаемое состояние и когда будет полный набор?
+   Чем подтверждается: общий файл подключения содержит девять сервисов
+   Что нужно в ответ: план и дата
+
+MY-19 → infra (до защиты)
+   Вопрос: Кто ведёт сводный каталог событий? У команд есть свои перечни событий, сводного нет
+   Чем подтверждается: состав событий определён у команд, сводный перечень событий не собран
+   Что нужно в ответ: назначить владельца сводного перечня
+
+MY-20 → infra (до защиты)
+   Вопрос: Мок-сервер для параллельной разработки описан, но не сделан — он ещё нужен по дорожке или снят?
+   Чем подтверждается: в папке моков только описание
+   Что нужно в ответ: решение
+
+MY-21 → все команды (сейчас)
+   Вопрос: Обязательные сквозные проверки отсутствуют у всех — будут ли они и в какой форме?
+   Чем подтверждается: нет каталогов и инструментов сквозных проверок; исключение — проверка поднятого стенда в конвейере тестирования
+   Что нужно в ответ: план
+
+MY-22 → все команды (сейчас)
+   Вопрос: В реестрах вопросы без дат и ответственных — кто ведёт реестр и по какому признаку закрывает?
+   Чем подтверждается: реестры команд: значительная часть записей без даты и адресата
+   Что нужно в ответ: правило ведения реестра
+
+MY-23 → заказчик (сейчас)
+   Вопрос: «Core»: требования описывают пару «вход и Core», инфраструктура обосновала отказ решением ADR-008 — оставить требование или снять?
+   Чем подтверждается: решение инфраструктуры об отсутствии отдельного сервиса против формулировки требований
+   Что нужно в ответ: решение
+
+MY-24 → заказчик (сейчас)
+   Вопрос: Оперативный контур на реплике: чьё толкование верное — реплика общей базы или реплика собственной витрины?
+   Чем подтверждается: решение отчётности о реплике своей витрины против общей матрицы обмена
+   Что нужно в ответ: решение
+
+MY-25 → заказчик (сейчас)
+   Вопрос: Таймлайн вех не составлен — когда появится, чтобы команды планировали итерации?
+   Чем подтверждается: в требованиях отмечено, что таймлайн не составлен
+   Что нужно в ответ: дата
+
+MY-26 → заказчик (до защиты)
+   Вопрос: Шаблон итогового отчёта отсутствует — когда и где он появится?
+   Чем подтверждается: шаблон обещан отдельно и пока не выдан
+   Что нужно в ответ: шаблон
+
+==============================================================================

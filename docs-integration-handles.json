@@ -1,0 +1,2616 @@
+{
+ "generated_at": "2026-11-01",
+ "basis": {
+  "repository": "arch-info-system-monorepo",
+  "branch": "main",
+  "commit": "b161057"
+ },
+ "how_to_read": "endpoints — все точки API команды; integration=true означает, что точка нужна соседям; needs — что команда ждёт от соседей; decisions — что решить, чтобы понять, где делать ручку; reviewer_questions — вопросы проверяющего: команде, инфраструктуре и заказчику; infra_supplies — что отдаёт инфраструктура",
+ "modules": {
+  "planning-system": {
+   "name": "Модуль планирования",
+   "spec_files": [
+    "planning-system/docs/contracts/openapi.json",
+    "planning-system/docs/contracts/runtime.openapi.json",
+    "planning-system/docs/contracts/task-tracker-receiver.openapi.json"
+   ],
+   "spec_versions": {
+    "planning-system/docs/contracts/openapi.json": "1.1.0",
+    "planning-system/docs/contracts/runtime.openapi.json": "1.5.0",
+    "planning-system/docs/contracts/task-tracker-receiver.openapi.json": "1.0.0"
+   },
+   "endpoint_count": 47,
+   "endpoints": [
+    {
+     "id": "planning-system:DELETE /api/v1/attachments/{attachmentId}",
+     "method": "DELETE",
+     "path": "/api/v1/attachments/{attachmentId}",
+     "group": "api/v1/attachments",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/assignments",
+     "method": "GET",
+     "path": "/api/v1/assignments",
+     "group": "api/v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/attachments/{attachmentId}",
+     "method": "GET",
+     "path": "/api/v1/attachments/{attachmentId}",
+     "group": "api/v1/attachments",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/attachments/{attachmentId}/content",
+     "method": "GET",
+     "path": "/api/v1/attachments/{attachmentId}/content",
+     "group": "api/v1/attachments",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/availability",
+     "method": "GET",
+     "path": "/api/v1/availability",
+     "group": "api/v1/availability",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/downloads/assignments.xlsx",
+     "method": "GET",
+     "path": "/api/v1/downloads/assignments.xlsx",
+     "group": "api/v1/downloads",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/downloads/projects.xlsx",
+     "method": "GET",
+     "path": "/api/v1/downloads/projects.xlsx",
+     "group": "api/v1/downloads",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/export-options",
+     "method": "GET",
+     "path": "/api/v1/export-options",
+     "group": "api/v1/export-options",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/exports/{batchId}",
+     "method": "GET",
+     "path": "/api/v1/exports/{batchId}",
+     "group": "api/v1/exports",
+     "integration": true,
+     "purpose": "манифест партии (состав, версии, время)",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:GET /api/v1/exports/{batchId}/rows",
+     "method": "GET",
+     "path": "/api/v1/exports/{batchId}/rows",
+     "group": "api/v1/exports",
+     "integration": true,
+     "purpose": "страницы строк партии с курсором",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:GET /api/v1/forecasts/{forecastId}",
+     "method": "GET",
+     "path": "/api/v1/forecasts/{forecastId}",
+     "group": "api/v1/forecasts",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/me",
+     "method": "GET",
+     "path": "/api/v1/me",
+     "group": "api/v1/me",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/operations/{operationId}",
+     "method": "GET",
+     "path": "/api/v1/operations/{operationId}",
+     "group": "api/v1/operations",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/planning-options",
+     "method": "GET",
+     "path": "/api/v1/planning-options",
+     "group": "api/v1/planning-options",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/portfolios",
+     "method": "GET",
+     "path": "/api/v1/portfolios",
+     "group": "api/v1/portfolios",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/project-cards",
+     "method": "GET",
+     "path": "/api/v1/project-cards",
+     "group": "api/v1/project-cards",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/project-timeline",
+     "method": "GET",
+     "path": "/api/v1/project-timeline",
+     "group": "api/v1/project-timeline",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/projects",
+     "method": "GET",
+     "path": "/api/v1/projects",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/projects/{projectId}",
+     "method": "GET",
+     "path": "/api/v1/projects/{projectId}",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/projects/{projectId}/projection",
+     "method": "GET",
+     "path": "/api/v1/projects/{projectId}/projection",
+     "group": "api/v1/projects",
+     "integration": true,
+     "purpose": "оперативная проекция проекта",
+     "for": [
+      "reports"
+     ],
+     "status": "готово, приёмка потребителя ожидается"
+    },
+    {
+     "id": "planning-system:GET /api/v1/projects/{projectId}/release-context",
+     "method": "GET",
+     "path": "/api/v1/projects/{projectId}/release-context",
+     "group": "api/v1/projects",
+     "integration": true,
+     "purpose": "контекст релиза для тест-планов",
+     "for": [
+      "qa"
+     ],
+     "status": "объявлена, кода нет"
+    },
+    {
+     "id": "planning-system:GET /api/v1/publications/{publicationId}",
+     "method": "GET",
+     "path": "/api/v1/publications/{publicationId}",
+     "group": "api/v1/publications",
+     "integration": true,
+     "purpose": "состояние публикации плана",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:GET /api/v1/resource-options",
+     "method": "GET",
+     "path": "/api/v1/resource-options",
+     "group": "api/v1/resource-options",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/versions/{versionId}",
+     "method": "GET",
+     "path": "/api/v1/versions/{versionId}",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:GET /api/v1/workspace",
+     "method": "GET",
+     "path": "/api/v1/workspace",
+     "group": "api/v1/workspace",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PATCH /api/v1/projects/{projectId}",
+     "method": "PATCH",
+     "path": "/api/v1/projects/{projectId}",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PATCH /api/v1/versions/{versionId}/assignments/{assignmentId}",
+     "method": "PATCH",
+     "path": "/api/v1/versions/{versionId}/assignments/{assignmentId}",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PATCH /api/v1/versions/{versionId}/timeline",
+     "method": "PATCH",
+     "path": "/api/v1/versions/{versionId}/timeline",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/attachments",
+     "method": "POST",
+     "path": "/api/v1/attachments",
+     "group": "api/v1/attachments",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/exports",
+     "method": "POST",
+     "path": "/api/v1/exports",
+     "group": "api/v1/exports",
+     "integration": true,
+     "purpose": "создать неизменяемую партию плана для аналитического контура",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:POST /api/v1/integrations/task-events",
+     "method": "POST",
+     "path": "/api/v1/integrations/task-events",
+     "group": "api/v1/integrations",
+     "integration": true,
+     "purpose": "приём доменных событий учёта работ",
+     "from": [
+      "task-tracker"
+     ],
+     "status": "готово, контракт помечен как предложение потребителя"
+    },
+    {
+     "id": "planning-system:POST /api/v1/portfolios/{portfolioId}/programs",
+     "method": "POST",
+     "path": "/api/v1/portfolios/{portfolioId}/programs",
+     "group": "api/v1/portfolios",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/projects",
+     "method": "POST",
+     "path": "/api/v1/projects",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/projects/{projectId}/archive",
+     "method": "POST",
+     "path": "/api/v1/projects/{projectId}/archive",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/projects/{projectId}/versions",
+     "method": "POST",
+     "path": "/api/v1/projects/{projectId}/versions",
+     "group": "api/v1/projects",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/publications/{publicationId}/receipt",
+     "method": "POST",
+     "path": "/api/v1/publications/{publicationId}/receipt",
+     "group": "api/v1/publications",
+     "integration": true,
+     "purpose": "квитанция получателя о приёме",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:POST /api/v1/publications/{publicationId}/retry",
+     "method": "POST",
+     "path": "/api/v1/publications/{publicationId}/retry",
+     "group": "api/v1/publications",
+     "integration": true,
+     "purpose": "повтор публикации после сбоя",
+     "status": "готово"
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/activate",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/activate",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/assignments",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/assignments",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/confirm-resources",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/confirm-resources",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/decisions",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/decisions",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/forecasts",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/forecasts",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:POST /api/v1/versions/{versionId}/submit",
+     "method": "POST",
+     "path": "/api/v1/versions/{versionId}/submit",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PUT /api/v1/availability/{availabilityId}",
+     "method": "PUT",
+     "path": "/api/v1/availability/{availabilityId}",
+     "group": "api/v1/availability",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PUT /api/v1/planning/projects/{projectId}/versions/{planVersionId}",
+     "method": "PUT",
+     "path": "/api/v1/planning/projects/{projectId}/versions/{planVersionId}",
+     "group": "api/v1/planning",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PUT /api/v1/versions/{versionId}/draft",
+     "method": "PUT",
+     "path": "/api/v1/versions/{versionId}/draft",
+     "group": "api/v1/versions",
+     "integration": false
+    },
+    {
+     "id": "planning-system:PUT /api/v1/versions/{versionId}/forecast-inputs",
+     "method": "PUT",
+     "path": "/api/v1/versions/{versionId}/forecast-inputs",
+     "group": "api/v1/versions",
+     "integration": false
+    }
+   ]
+  },
+  "task-tracker": {
+   "name": "Модуль учёта работ",
+   "spec_files": [
+    "task-tracker/docs/block-g-api-and-events/openapi.yaml"
+   ],
+   "spec_versions": {
+    "task-tracker/docs/block-g-api-and-events/openapi.yaml": "1.1.0-draft"
+   },
+   "endpoint_count": 58,
+   "endpoints": [
+    {
+     "id": "task-tracker:DELETE /iterations/{id}/items/{itemId}",
+     "method": "DELETE",
+     "path": "/iterations/{id}/items/{itemId}",
+     "group": "iterations/items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:DELETE /planning/projects/{externalId}",
+     "method": "DELETE",
+     "path": "/planning/projects/{externalId}",
+     "group": "planning/projects",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:DELETE /work-items/{id}",
+     "method": "DELETE",
+     "path": "/work-items/{id}",
+     "group": "work-items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:DELETE /work-items/{id}/attachments/{attachmentId}",
+     "method": "DELETE",
+     "path": "/work-items/{id}/attachments/{attachmentId}",
+     "group": "work-items/attachments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:DELETE /work-items/{id}/comments/{commentId}",
+     "method": "DELETE",
+     "path": "/work-items/{id}/comments/{commentId}",
+     "group": "work-items/comments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /admin/access",
+     "method": "GET",
+     "path": "/admin/access",
+     "group": "admin/access",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /admin/directory",
+     "method": "GET",
+     "path": "/admin/directory",
+     "group": "admin/directory",
+     "integration": true,
+     "purpose": "состояние справочника сотрудников в кэше",
+     "provider": [
+      "reference-manager"
+     ],
+     "status": "готово, формат ответа не совпадает с ожиданием"
+    },
+    {
+     "id": "task-tracker:GET /admin/outbox",
+     "method": "GET",
+     "path": "/admin/outbox",
+     "group": "admin/outbox",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /admin/permissions",
+     "method": "GET",
+     "path": "/admin/permissions",
+     "group": "admin/permissions",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /admin/severity-mapping",
+     "method": "GET",
+     "path": "/admin/severity-mapping",
+     "group": "admin/severity-mapping",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /iterations",
+     "method": "GET",
+     "path": "/iterations",
+     "group": "iterations",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /iterations/{id}",
+     "method": "GET",
+     "path": "/iterations/{id}",
+     "group": "iterations",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /me",
+     "method": "GET",
+     "path": "/me",
+     "group": "me",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /notifications",
+     "method": "GET",
+     "path": "/notifications",
+     "group": "notifications",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /planning/projects/{externalId}/facts",
+     "method": "GET",
+     "path": "/planning/projects/{externalId}/facts",
+     "group": "planning/projects/facts",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /priorities",
+     "method": "GET",
+     "path": "/priorities",
+     "group": "priorities",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /reports/history",
+     "method": "GET",
+     "path": "/reports/history",
+     "group": "reports/history",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /reports/iterations",
+     "method": "GET",
+     "path": "/reports/iterations",
+     "group": "reports/iterations",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /reports/statuses",
+     "method": "GET",
+     "path": "/reports/statuses",
+     "group": "reports/statuses",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /reports/time-logs",
+     "method": "GET",
+     "path": "/reports/time-logs",
+     "group": "reports/time-logs",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /reports/work-items",
+     "method": "GET",
+     "path": "/reports/work-items",
+     "group": "reports/work-items",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:GET /statuses",
+     "method": "GET",
+     "path": "/statuses",
+     "group": "statuses",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /types",
+     "method": "GET",
+     "path": "/types",
+     "group": "types",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /users",
+     "method": "GET",
+     "path": "/users",
+     "group": "users",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items",
+     "method": "GET",
+     "path": "/work-items",
+     "group": "work-items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}",
+     "method": "GET",
+     "path": "/work-items/{id}",
+     "group": "work-items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}/attachments",
+     "method": "GET",
+     "path": "/work-items/{id}/attachments",
+     "group": "work-items/attachments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}/attachments/{attachmentId}",
+     "method": "GET",
+     "path": "/work-items/{id}/attachments/{attachmentId}",
+     "group": "work-items/attachments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}/comments",
+     "method": "GET",
+     "path": "/work-items/{id}/comments",
+     "group": "work-items/comments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}/history",
+     "method": "GET",
+     "path": "/work-items/{id}/history",
+     "group": "work-items/history",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:GET /work-items/{id}/time-logs",
+     "method": "GET",
+     "path": "/work-items/{id}/time-logs",
+     "group": "work-items/time-logs",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /admin/priorities/{id}",
+     "method": "PATCH",
+     "path": "/admin/priorities/{id}",
+     "group": "admin/priorities",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /admin/statuses/{id}",
+     "method": "PATCH",
+     "path": "/admin/statuses/{id}",
+     "group": "admin/statuses",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /admin/types/{type}",
+     "method": "PATCH",
+     "path": "/admin/types/{type}",
+     "group": "admin/types",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /iterations/{id}",
+     "method": "PATCH",
+     "path": "/iterations/{id}",
+     "group": "iterations",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /notifications/{id}",
+     "method": "PATCH",
+     "path": "/notifications/{id}",
+     "group": "notifications",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /work-items/{id}",
+     "method": "PATCH",
+     "path": "/work-items/{id}",
+     "group": "work-items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PATCH /work-items/{id}/comments/{commentId}",
+     "method": "PATCH",
+     "path": "/work-items/{id}/comments/{commentId}",
+     "group": "work-items/comments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /admin/directory/sync",
+     "method": "POST",
+     "path": "/admin/directory/sync",
+     "group": "admin/directory/sync",
+     "integration": true,
+     "purpose": "принудительная синхронизация справочника",
+     "provider": [
+      "reference-manager"
+     ],
+     "status": "готово, формат ответа не совпадает с ожиданием"
+    },
+    {
+     "id": "task-tracker:POST /admin/outbox/{id}/retry",
+     "method": "POST",
+     "path": "/admin/outbox/{id}/retry",
+     "group": "admin/outbox/retry",
+     "integration": true,
+     "purpose": "повтор недоставленного события",
+     "status": "готово, но у модуля нет клиента очереди"
+    },
+    {
+     "id": "task-tracker:POST /admin/priorities",
+     "method": "POST",
+     "path": "/admin/priorities",
+     "group": "admin/priorities",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /admin/statuses",
+     "method": "POST",
+     "path": "/admin/statuses",
+     "group": "admin/statuses",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /bugs",
+     "method": "POST",
+     "path": "/bugs",
+     "group": "bugs",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:POST /exports/work-items",
+     "method": "POST",
+     "path": "/exports/work-items",
+     "group": "exports/work-items",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:POST /imports/work-items",
+     "method": "POST",
+     "path": "/imports/work-items",
+     "group": "imports/work-items",
+     "integration": true
+    },
+    {
+     "id": "task-tracker:POST /iterations",
+     "method": "POST",
+     "path": "/iterations",
+     "group": "iterations",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /iterations/{id}/activate",
+     "method": "POST",
+     "path": "/iterations/{id}/activate",
+     "group": "iterations/activate",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /iterations/{id}/complete",
+     "method": "POST",
+     "path": "/iterations/{id}/complete",
+     "group": "iterations/complete",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /work-items",
+     "method": "POST",
+     "path": "/work-items",
+     "group": "work-items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /work-items/{id}/attachments",
+     "method": "POST",
+     "path": "/work-items/{id}/attachments",
+     "group": "work-items/attachments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /work-items/{id}/comments",
+     "method": "POST",
+     "path": "/work-items/{id}/comments",
+     "group": "work-items/comments",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:POST /work-items/{id}/time-logs",
+     "method": "POST",
+     "path": "/work-items/{id}/time-logs",
+     "group": "work-items/time-logs",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /admin/access/{userId}",
+     "method": "PUT",
+     "path": "/admin/access/{userId}",
+     "group": "admin/access",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /admin/permissions/{role}/{permission}",
+     "method": "PUT",
+     "path": "/admin/permissions/{role}/{permission}",
+     "group": "admin/permissions",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /admin/severity-mapping/{severity}",
+     "method": "PUT",
+     "path": "/admin/severity-mapping/{severity}",
+     "group": "admin/severity-mapping",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /iterations/{id}/capacity",
+     "method": "PUT",
+     "path": "/iterations/{id}/capacity",
+     "group": "iterations/capacity",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /iterations/{id}/items/{itemId}",
+     "method": "PUT",
+     "path": "/iterations/{id}/items/{itemId}",
+     "group": "iterations/items",
+     "integration": false
+    },
+    {
+     "id": "task-tracker:PUT /planning/projects/{externalId}",
+     "method": "PUT",
+     "path": "/planning/projects/{externalId}",
+     "group": "planning/projects",
+     "integration": true
+    }
+   ]
+  },
+  "reference-manager": {
+   "name": "Справочники",
+   "spec_files": [
+    "reference-manager/backend/api/openapi/v1/absence/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/assignment/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/country/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/currency/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/employee/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/grade/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/health/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/org_unit/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/position/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/project_role/openapi.yaml",
+    "reference-manager/backend/api/openapi/v1/salary/openapi.yaml"
+   ],
+   "spec_versions": {
+    "reference-manager/backend/api/openapi/v1/absence/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/assignment/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/country/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/currency/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/employee/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/grade/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/health/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/org_unit/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/position/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/project_role/openapi.yaml": "1.0.0",
+    "reference-manager/backend/api/openapi/v1/salary/openapi.yaml": "1.0.0"
+   },
+   "endpoint_count": 84,
+   "endpoints": [
+    {
+     "id": "reference-manager:DELETE /v1/absences/{absenceID}",
+     "method": "DELETE",
+     "path": "/v1/absences/{absenceID}",
+     "group": "v1/absences",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/assignments/{assignmentID}",
+     "method": "DELETE",
+     "path": "/v1/assignments/{assignmentID}",
+     "group": "v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/countries/{countryID}",
+     "method": "DELETE",
+     "path": "/v1/countries/{countryID}",
+     "group": "v1/countries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/currencies/{currencyID}",
+     "method": "DELETE",
+     "path": "/v1/currencies/{currencyID}",
+     "group": "v1/currencies",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/employees/{employeeID}",
+     "method": "DELETE",
+     "path": "/v1/employees/{employeeID}",
+     "group": "v1/employees",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/grades/{gradeID}",
+     "method": "DELETE",
+     "path": "/v1/grades/{gradeID}",
+     "group": "v1/grades",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/org_units/{orgUnitID}",
+     "method": "DELETE",
+     "path": "/v1/org_units/{orgUnitID}",
+     "group": "v1/org_units",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/positions/{positionID}",
+     "method": "DELETE",
+     "path": "/v1/positions/{positionID}",
+     "group": "v1/positions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/project_roles/{projectRoleID}",
+     "method": "DELETE",
+     "path": "/v1/project_roles/{projectRoleID}",
+     "group": "v1/project_roles",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:DELETE /v1/salaries/{salaryID}",
+     "method": "DELETE",
+     "path": "/v1/salaries/{salaryID}",
+     "group": "v1/salaries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/absences/",
+     "method": "GET",
+     "path": "/v1/absences/",
+     "group": "v1/absences",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/absences/{absenceID}",
+     "method": "GET",
+     "path": "/v1/absences/{absenceID}",
+     "group": "v1/absences",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/absences/{absenceID}/revisions",
+     "method": "GET",
+     "path": "/v1/absences/{absenceID}/revisions",
+     "group": "v1/absences/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/absences/{absenceID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/absences/{absenceID}/revisions/{revisionNumber}",
+     "group": "v1/absences/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/assignments/",
+     "method": "GET",
+     "path": "/v1/assignments/",
+     "group": "v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/assignments/{assignmentID}",
+     "method": "GET",
+     "path": "/v1/assignments/{assignmentID}",
+     "group": "v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/assignments/{assignmentID}/revisions",
+     "method": "GET",
+     "path": "/v1/assignments/{assignmentID}/revisions",
+     "group": "v1/assignments/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/assignments/{assignmentID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/assignments/{assignmentID}/revisions/{revisionNumber}",
+     "group": "v1/assignments/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/countries/",
+     "method": "GET",
+     "path": "/v1/countries/",
+     "group": "v1/countries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/countries/{countryID}",
+     "method": "GET",
+     "path": "/v1/countries/{countryID}",
+     "group": "v1/countries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/countries/{countryID}/revisions",
+     "method": "GET",
+     "path": "/v1/countries/{countryID}/revisions",
+     "group": "v1/countries/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/countries/{countryID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/countries/{countryID}/revisions/{revisionNumber}",
+     "group": "v1/countries/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/currencies/",
+     "method": "GET",
+     "path": "/v1/currencies/",
+     "group": "v1/currencies",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/currencies/{currencyID}",
+     "method": "GET",
+     "path": "/v1/currencies/{currencyID}",
+     "group": "v1/currencies",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/currencies/{currencyID}/revisions",
+     "method": "GET",
+     "path": "/v1/currencies/{currencyID}/revisions",
+     "group": "v1/currencies/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/currencies/{currencyID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/currencies/{currencyID}/revisions/{revisionNumber}",
+     "group": "v1/currencies/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/employees/",
+     "method": "GET",
+     "path": "/v1/employees/",
+     "group": "v1/employees",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/employees/{employeeID}",
+     "method": "GET",
+     "path": "/v1/employees/{employeeID}",
+     "group": "v1/employees",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/employees/{employeeID}/revisions",
+     "method": "GET",
+     "path": "/v1/employees/{employeeID}/revisions",
+     "group": "v1/employees/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/employees/{employeeID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/employees/{employeeID}/revisions/{revisionNumber}",
+     "group": "v1/employees/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/grades/",
+     "method": "GET",
+     "path": "/v1/grades/",
+     "group": "v1/grades",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/grades/{gradeID}",
+     "method": "GET",
+     "path": "/v1/grades/{gradeID}",
+     "group": "v1/grades",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/grades/{gradeID}/revisions",
+     "method": "GET",
+     "path": "/v1/grades/{gradeID}/revisions",
+     "group": "v1/grades/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/grades/{gradeID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/grades/{gradeID}/revisions/{revisionNumber}",
+     "group": "v1/grades/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/health/livez",
+     "method": "GET",
+     "path": "/v1/health/livez",
+     "group": "v1/health/livez",
+     "integration": true,
+     "purpose": "проверка живости для среды",
+     "for": [
+      "infra"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:GET /v1/health/readyz",
+     "method": "GET",
+     "path": "/v1/health/readyz",
+     "group": "v1/health/readyz",
+     "integration": true,
+     "purpose": "проверка готовности для среды",
+     "for": [
+      "infra"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:GET /v1/org_units/",
+     "method": "GET",
+     "path": "/v1/org_units/",
+     "group": "v1/org_units",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/org_units/{orgUnitID}",
+     "method": "GET",
+     "path": "/v1/org_units/{orgUnitID}",
+     "group": "v1/org_units",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/org_units/{orgUnitID}/revisions",
+     "method": "GET",
+     "path": "/v1/org_units/{orgUnitID}/revisions",
+     "group": "v1/org_units/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/org_units/{orgUnitID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/org_units/{orgUnitID}/revisions/{revisionNumber}",
+     "group": "v1/org_units/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/positions/",
+     "method": "GET",
+     "path": "/v1/positions/",
+     "group": "v1/positions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/positions/{positionID}",
+     "method": "GET",
+     "path": "/v1/positions/{positionID}",
+     "group": "v1/positions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/positions/{positionID}/revisions",
+     "method": "GET",
+     "path": "/v1/positions/{positionID}/revisions",
+     "group": "v1/positions/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/positions/{positionID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/positions/{positionID}/revisions/{revisionNumber}",
+     "group": "v1/positions/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/project_roles/",
+     "method": "GET",
+     "path": "/v1/project_roles/",
+     "group": "v1/project_roles",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/project_roles/{projectRoleID}",
+     "method": "GET",
+     "path": "/v1/project_roles/{projectRoleID}",
+     "group": "v1/project_roles",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/project_roles/{projectRoleID}/revisions",
+     "method": "GET",
+     "path": "/v1/project_roles/{projectRoleID}/revisions",
+     "group": "v1/project_roles/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/project_roles/{projectRoleID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/project_roles/{projectRoleID}/revisions/{revisionNumber}",
+     "group": "v1/project_roles/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/salaries/",
+     "method": "GET",
+     "path": "/v1/salaries/",
+     "group": "v1/salaries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/salaries/{salaryID}",
+     "method": "GET",
+     "path": "/v1/salaries/{salaryID}",
+     "group": "v1/salaries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/salaries/{salaryID}/revisions",
+     "method": "GET",
+     "path": "/v1/salaries/{salaryID}/revisions",
+     "group": "v1/salaries/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:GET /v1/salaries/{salaryID}/revisions/{revisionNumber}",
+     "method": "GET",
+     "path": "/v1/salaries/{salaryID}/revisions/{revisionNumber}",
+     "group": "v1/salaries/revisions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/absences/{absenceID}",
+     "method": "PATCH",
+     "path": "/v1/absences/{absenceID}",
+     "group": "v1/absences",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/assignments/{assignmentID}",
+     "method": "PATCH",
+     "path": "/v1/assignments/{assignmentID}",
+     "group": "v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/countries/{countryID}",
+     "method": "PATCH",
+     "path": "/v1/countries/{countryID}",
+     "group": "v1/countries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/currencies/{currencyID}",
+     "method": "PATCH",
+     "path": "/v1/currencies/{currencyID}",
+     "group": "v1/currencies",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/employees/{employeeID}",
+     "method": "PATCH",
+     "path": "/v1/employees/{employeeID}",
+     "group": "v1/employees",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/grades/{gradeID}",
+     "method": "PATCH",
+     "path": "/v1/grades/{gradeID}",
+     "group": "v1/grades",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/org_units/{orgUnitID}",
+     "method": "PATCH",
+     "path": "/v1/org_units/{orgUnitID}",
+     "group": "v1/org_units",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/positions/{positionID}",
+     "method": "PATCH",
+     "path": "/v1/positions/{positionID}",
+     "group": "v1/positions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/project_roles/{projectRoleID}",
+     "method": "PATCH",
+     "path": "/v1/project_roles/{projectRoleID}",
+     "group": "v1/project_roles",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:PATCH /v1/salaries/{salaryID}",
+     "method": "PATCH",
+     "path": "/v1/salaries/{salaryID}",
+     "group": "v1/salaries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/absences/",
+     "method": "POST",
+     "path": "/v1/absences/",
+     "group": "v1/absences",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/absences/export",
+     "method": "POST",
+     "path": "/v1/absences/export",
+     "group": "v1/absences/export",
+     "integration": true,
+     "purpose": "выгрузка отсутствий файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/assignments/",
+     "method": "POST",
+     "path": "/v1/assignments/",
+     "group": "v1/assignments",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/assignments/export",
+     "method": "POST",
+     "path": "/v1/assignments/export",
+     "group": "v1/assignments/export",
+     "integration": true,
+     "purpose": "выгрузка назначений файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/countries/",
+     "method": "POST",
+     "path": "/v1/countries/",
+     "group": "v1/countries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/countries/export",
+     "method": "POST",
+     "path": "/v1/countries/export",
+     "group": "v1/countries/export",
+     "integration": true,
+     "purpose": "выгрузка стран файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/currencies/",
+     "method": "POST",
+     "path": "/v1/currencies/",
+     "group": "v1/currencies",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/currencies/export",
+     "method": "POST",
+     "path": "/v1/currencies/export",
+     "group": "v1/currencies/export",
+     "integration": true,
+     "purpose": "выгрузка валют файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/employees/",
+     "method": "POST",
+     "path": "/v1/employees/",
+     "group": "v1/employees",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/employees/export",
+     "method": "POST",
+     "path": "/v1/employees/export",
+     "group": "v1/employees/export",
+     "integration": true,
+     "purpose": "выгрузка справочника сотрудников файлом",
+     "for": [
+      "reports",
+      "planning",
+      "qa",
+      "task-tracker"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/employees/{employeeID}/dismiss",
+     "method": "POST",
+     "path": "/v1/employees/{employeeID}/dismiss",
+     "group": "v1/employees/dismiss",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/employees/{employeeID}/syncAccount",
+     "method": "POST",
+     "path": "/v1/employees/{employeeID}/syncAccount",
+     "group": "v1/employees/syncAccount",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/grades/",
+     "method": "POST",
+     "path": "/v1/grades/",
+     "group": "v1/grades",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/grades/export",
+     "method": "POST",
+     "path": "/v1/grades/export",
+     "group": "v1/grades/export",
+     "integration": true,
+     "purpose": "выгрузка грейдов файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/org_units/",
+     "method": "POST",
+     "path": "/v1/org_units/",
+     "group": "v1/org_units",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/org_units/export",
+     "method": "POST",
+     "path": "/v1/org_units/export",
+     "group": "v1/org_units/export",
+     "integration": true,
+     "purpose": "выгрузка оргструктуры файлом",
+     "for": [
+      "reports",
+      "task-tracker",
+      "qa"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/positions/",
+     "method": "POST",
+     "path": "/v1/positions/",
+     "group": "v1/positions",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/positions/export",
+     "method": "POST",
+     "path": "/v1/positions/export",
+     "group": "v1/positions/export",
+     "integration": true,
+     "purpose": "выгрузка должностей файлом",
+     "for": [
+      "reports",
+      "planning"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/project_roles/",
+     "method": "POST",
+     "path": "/v1/project_roles/",
+     "group": "v1/project_roles",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/project_roles/export",
+     "method": "POST",
+     "path": "/v1/project_roles/export",
+     "group": "v1/project_roles/export",
+     "integration": true,
+     "purpose": "выгрузка ролей в проектах файлом",
+     "for": [
+      "reports"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "reference-manager:POST /v1/salaries/",
+     "method": "POST",
+     "path": "/v1/salaries/",
+     "group": "v1/salaries",
+     "integration": false
+    },
+    {
+     "id": "reference-manager:POST /v1/salaries/export",
+     "method": "POST",
+     "path": "/v1/salaries/export",
+     "group": "v1/salaries/export",
+     "integration": true,
+     "purpose": "выгрузка окладов файлом",
+     "for": [
+      "reports",
+      "planning"
+     ],
+     "status": "готово"
+    }
+   ]
+  },
+  "qa": {
+   "name": "Управление тестированием",
+   "spec_files": [
+    "qa/api/openapi/v1/openapi.yaml"
+   ],
+   "spec_versions": {
+    "qa/api/openapi/v1/openapi.yaml": "0.4.0-draft"
+   },
+   "endpoint_count": 54,
+   "endpoints": [
+    {
+     "id": "qa:DELETE /runs/{id}",
+     "method": "DELETE",
+     "path": "/runs/{id}",
+     "group": "runs",
+     "integration": false
+    },
+    {
+     "id": "qa:DELETE /test-cases/{id}",
+     "method": "DELETE",
+     "path": "/test-cases/{id}",
+     "group": "test-cases",
+     "integration": false
+    },
+    {
+     "id": "qa:DELETE /test-plans/{id}/cases/{caseId}",
+     "method": "DELETE",
+     "path": "/test-plans/{id}/cases/{caseId}",
+     "group": "test-plans/cases",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /admin/classifiers",
+     "method": "GET",
+     "path": "/admin/classifiers",
+     "group": "admin/classifiers",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /admin/environments",
+     "method": "GET",
+     "path": "/admin/environments",
+     "group": "admin/environments",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /admin/tracker-status-mapping",
+     "method": "GET",
+     "path": "/admin/tracker-status-mapping",
+     "group": "admin/tracker-status-mapping",
+     "integration": true,
+     "purpose": "сопоставление статусов дефекта со статусами учёта работ",
+     "provider": [
+      "task-tracker"
+     ],
+     "status": "готово"
+    },
+    {
+     "id": "qa:GET /defects",
+     "method": "GET",
+     "path": "/defects",
+     "group": "defects",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /defects/{id}",
+     "method": "GET",
+     "path": "/defects/{id}",
+     "group": "defects",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /defects/{id}/history",
+     "method": "GET",
+     "path": "/defects/{id}/history",
+     "group": "defects/history",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /livez",
+     "method": "GET",
+     "path": "/livez",
+     "group": "livez",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /readyz",
+     "method": "GET",
+     "path": "/readyz",
+     "group": "readyz",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /reports/{resource}",
+     "method": "GET",
+     "path": "/reports/{resource}",
+     "group": "reports",
+     "integration": true,
+     "purpose": "выгрузка пяти ресурсов (кейсы, планы, прогоны, результаты, дефекты) для отчётности",
+     "for": [
+      "reports"
+     ],
+     "status": "объявлена, не реализована"
+    },
+    {
+     "id": "qa:GET /runs",
+     "method": "GET",
+     "path": "/runs",
+     "group": "runs",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /runs/{id}",
+     "method": "GET",
+     "path": "/runs/{id}",
+     "group": "runs",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /runs/{id}/results",
+     "method": "GET",
+     "path": "/runs/{id}/results",
+     "group": "runs/results",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /suites",
+     "method": "GET",
+     "path": "/suites",
+     "group": "suites",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /suites/{id}",
+     "method": "GET",
+     "path": "/suites/{id}",
+     "group": "suites",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /templates",
+     "method": "GET",
+     "path": "/templates",
+     "group": "templates",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /templates/{id}",
+     "method": "GET",
+     "path": "/templates/{id}",
+     "group": "templates",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-cases",
+     "method": "GET",
+     "path": "/test-cases",
+     "group": "test-cases",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-cases/{id}",
+     "method": "GET",
+     "path": "/test-cases/{id}",
+     "group": "test-cases",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-cases/{id}/versions",
+     "method": "GET",
+     "path": "/test-cases/{id}/versions",
+     "group": "test-cases/versions",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-plans",
+     "method": "GET",
+     "path": "/test-plans",
+     "group": "test-plans",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-plans/{id}",
+     "method": "GET",
+     "path": "/test-plans/{id}",
+     "group": "test-plans",
+     "integration": false
+    },
+    {
+     "id": "qa:GET /test-plans/{id}/summary",
+     "method": "GET",
+     "path": "/test-plans/{id}/summary",
+     "group": "test-plans/summary",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /admin/classifiers",
+     "method": "POST",
+     "path": "/admin/classifiers",
+     "group": "admin/classifiers",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /admin/environments",
+     "method": "POST",
+     "path": "/admin/environments",
+     "group": "admin/environments",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /defects",
+     "method": "POST",
+     "path": "/defects",
+     "group": "defects",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /defects/{id}/comments",
+     "method": "POST",
+     "path": "/defects/{id}/comments",
+     "group": "defects/comments",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /defects/{id}/transitions",
+     "method": "POST",
+     "path": "/defects/{id}/transitions",
+     "group": "defects/transitions",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /runs",
+     "method": "POST",
+     "path": "/runs",
+     "group": "runs",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /runs/{id}/rerun",
+     "method": "POST",
+     "path": "/runs/{id}/rerun",
+     "group": "runs/rerun",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /runs/{id}/results/bulk-status",
+     "method": "POST",
+     "path": "/runs/{id}/results/bulk-status",
+     "group": "runs/results/bulk-status",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /runs/{id}/{action}",
+     "method": "POST",
+     "path": "/runs/{id}/{action}",
+     "group": "runs",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /suites",
+     "method": "POST",
+     "path": "/suites",
+     "group": "suites",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /suites/{id}/{action}",
+     "method": "POST",
+     "path": "/suites/{id}/{action}",
+     "group": "suites",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /templates",
+     "method": "POST",
+     "path": "/templates",
+     "group": "templates",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-cases",
+     "method": "POST",
+     "path": "/test-cases",
+     "group": "test-cases",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-cases/copy",
+     "method": "POST",
+     "path": "/test-cases/copy",
+     "group": "test-cases/copy",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-cases/export",
+     "method": "POST",
+     "path": "/test-cases/export",
+     "group": "test-cases/export",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-cases/import",
+     "method": "POST",
+     "path": "/test-cases/import",
+     "group": "test-cases/import",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-cases/{id}/status",
+     "method": "POST",
+     "path": "/test-cases/{id}/status",
+     "group": "test-cases/status",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-plans",
+     "method": "POST",
+     "path": "/test-plans",
+     "group": "test-plans",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-plans/{id}/cases",
+     "method": "POST",
+     "path": "/test-plans/{id}/cases",
+     "group": "test-plans/cases",
+     "integration": false
+    },
+    {
+     "id": "qa:POST /test-plans/{id}/{action}",
+     "method": "POST",
+     "path": "/test-plans/{id}/{action}",
+     "group": "test-plans",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /admin/classifiers/{kind}/{code}",
+     "method": "PUT",
+     "path": "/admin/classifiers/{kind}/{code}",
+     "group": "admin/classifiers",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /admin/environments/{id}",
+     "method": "PUT",
+     "path": "/admin/environments/{id}",
+     "group": "admin/environments",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /admin/tracker-status-mapping",
+     "method": "PUT",
+     "path": "/admin/tracker-status-mapping",
+     "group": "admin/tracker-status-mapping",
+     "integration": true
+    },
+    {
+     "id": "qa:PUT /defects/{id}",
+     "method": "PUT",
+     "path": "/defects/{id}",
+     "group": "defects",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /runs/{id}/results/{resultId}",
+     "method": "PUT",
+     "path": "/runs/{id}/results/{resultId}",
+     "group": "runs/results",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /suites/{id}",
+     "method": "PUT",
+     "path": "/suites/{id}",
+     "group": "suites",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /templates/{id}",
+     "method": "PUT",
+     "path": "/templates/{id}",
+     "group": "templates",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /test-cases/{id}",
+     "method": "PUT",
+     "path": "/test-cases/{id}",
+     "group": "test-cases",
+     "integration": false
+    },
+    {
+     "id": "qa:PUT /test-plans/{id}",
+     "method": "PUT",
+     "path": "/test-plans/{id}",
+     "group": "test-plans",
+     "integration": false
+    }
+   ]
+  },
+  "reports": {
+   "name": "Отчётность",
+   "spec_files": [
+    "reports/api/openapi/v1/openapi.yaml"
+   ],
+   "spec_versions": {
+    "reports/api/openapi/v1/openapi.yaml": "0.2.0-draft"
+   },
+   "endpoint_count": 30,
+   "endpoints": [
+    {
+     "id": "reports:DELETE /subscriptions/{subscriptionId}",
+     "method": "DELETE",
+     "path": "/subscriptions/{subscriptionId}",
+     "group": "subscriptions",
+     "integration": false
+    },
+    {
+     "id": "reports:DELETE /views/{viewId}",
+     "method": "DELETE",
+     "path": "/views/{viewId}",
+     "group": "views",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /audit",
+     "method": "GET",
+     "path": "/audit",
+     "group": "audit",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /embed/iterations/{iterationId}",
+     "method": "GET",
+     "path": "/embed/iterations/{iterationId}",
+     "group": "embed/iterations",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /etl/batches",
+     "method": "GET",
+     "path": "/etl/batches",
+     "group": "etl/batches",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /etl/reconciliations",
+     "method": "GET",
+     "path": "/etl/reconciliations",
+     "group": "etl/reconciliations",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /exports",
+     "method": "GET",
+     "path": "/exports",
+     "group": "exports",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /exports/{exportId}",
+     "method": "GET",
+     "path": "/exports/{exportId}",
+     "group": "exports",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /exports/{exportId}/file",
+     "method": "GET",
+     "path": "/exports/{exportId}/file",
+     "group": "exports/file",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /freshness",
+     "method": "GET",
+     "path": "/freshness",
+     "group": "freshness",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /health/livez",
+     "method": "GET",
+     "path": "/health/livez",
+     "group": "health/livez",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /health/readyz",
+     "method": "GET",
+     "path": "/health/readyz",
+     "group": "health/readyz",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /notifications",
+     "method": "GET",
+     "path": "/notifications",
+     "group": "notifications",
+     "integration": true
+    },
+    {
+     "id": "reports:GET /reports",
+     "method": "GET",
+     "path": "/reports",
+     "group": "reports",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /reports/{reportId}",
+     "method": "GET",
+     "path": "/reports/{reportId}",
+     "group": "reports",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /subscriptions",
+     "method": "GET",
+     "path": "/subscriptions",
+     "group": "subscriptions",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /subscriptions/{subscriptionId}",
+     "method": "GET",
+     "path": "/subscriptions/{subscriptionId}",
+     "group": "subscriptions",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /subscriptions/{subscriptionId}/deliveries",
+     "method": "GET",
+     "path": "/subscriptions/{subscriptionId}/deliveries",
+     "group": "subscriptions/deliveries",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /views",
+     "method": "GET",
+     "path": "/views",
+     "group": "views",
+     "integration": false
+    },
+    {
+     "id": "reports:GET /views/{viewId}",
+     "method": "GET",
+     "path": "/views/{viewId}",
+     "group": "views",
+     "integration": false
+    },
+    {
+     "id": "reports:PATCH /notifications/{notificationId}",
+     "method": "PATCH",
+     "path": "/notifications/{notificationId}",
+     "group": "notifications",
+     "integration": true
+    },
+    {
+     "id": "reports:PATCH /subscriptions/{subscriptionId}",
+     "method": "PATCH",
+     "path": "/subscriptions/{subscriptionId}",
+     "group": "subscriptions",
+     "integration": false
+    },
+    {
+     "id": "reports:PATCH /views/{viewId}",
+     "method": "PATCH",
+     "path": "/views/{viewId}",
+     "group": "views",
+     "integration": false
+    },
+    {
+     "id": "reports:POST /etl/loads",
+     "method": "POST",
+     "path": "/etl/loads",
+     "group": "etl/loads",
+     "integration": true
+    },
+    {
+     "id": "reports:POST /exports",
+     "method": "POST",
+     "path": "/exports",
+     "group": "exports",
+     "integration": true
+    },
+    {
+     "id": "reports:POST /reports/{reportId}/drilldown",
+     "method": "POST",
+     "path": "/reports/{reportId}/drilldown",
+     "group": "reports/drilldown",
+     "integration": true
+    },
+    {
+     "id": "reports:POST /reports/{reportId}/print",
+     "method": "POST",
+     "path": "/reports/{reportId}/print",
+     "group": "reports/print",
+     "integration": true
+    },
+    {
+     "id": "reports:POST /reports/{reportId}/query",
+     "method": "POST",
+     "path": "/reports/{reportId}/query",
+     "group": "reports/query",
+     "integration": true
+    },
+    {
+     "id": "reports:POST /subscriptions",
+     "method": "POST",
+     "path": "/subscriptions",
+     "group": "subscriptions",
+     "integration": false
+    },
+    {
+     "id": "reports:POST /views",
+     "method": "POST",
+     "path": "/views",
+     "group": "views",
+     "integration": false
+    }
+   ]
+  }
+ },
+ "needs": [
+  {
+   "id": "NEED-01",
+   "from": "planning-system",
+   "to": "task-tracker",
+   "what": "mapping проектов, эпиков и итераций, внешний источник факта, ревизия и признак удаления",
+   "handle": "GET /api/v1/planning/projects/{externalId}/facts",
+   "status": "ручка есть, путь закрыт флагом согласования",
+   "decide": "кто подписывает mapping и в каком документе"
+  },
+  {
+   "id": "NEED-02",
+   "from": "planning-system",
+   "to": "reference-manager",
+   "what": "кадровые данные и ставки для расчёта ресурсов",
+   "handle": "GET /v1/employees/, GET /v1/salaries/, GET /v1/positions/",
+   "status": "ручки есть, адрес и версия потребителю не выданы",
+   "decide": "кто выдаёт потребителю адрес и версию сервиса"
+  },
+  {
+   "id": "NEED-03",
+   "from": "planning-system",
+   "to": "infra",
+   "what": "вход, очередь и права, бакет вложений",
+   "handle": "среда: вход, топики, бакет",
+   "status": "вход и бакет выданы",
+   "decide": "ничего"
+  },
+  {
+   "id": "NEED-04",
+   "from": "planning-system",
+   "to": "не назначен",
+   "what": "сервис оповещений: адрес, канал, подтверждение получения",
+   "handle": "нет",
+   "status": "владельца нет ни у одной команды",
+   "decide": "назначить владельца сервиса оповещений"
+  },
+  {
+   "id": "NEED-05",
+   "from": "task-tracker",
+   "to": "reference-manager",
+   "what": "сотрудники и оргструктура со связанным идентификатором учётной записи и признаком активности",
+   "handle": "GET /v1/employees/, GET /v1/org_units/",
+   "status": "формат ответа не совпадает с ожиданием",
+   "decide": "где приводить формат: у справочников или у учёта работ"
+  },
+  {
+   "id": "NEED-06",
+   "from": "task-tracker",
+   "to": "qa",
+   "what": "согласованная шкала серьёзности и начальный приоритет",
+   "handle": "POST /api/v1/bugs",
+   "status": "ручка есть у учёта работ; соглашение описано ими как DEC-TT-04",
+   "decide": "подтвердить шкалу письменно"
+  },
+  {
+   "id": "NEED-07",
+   "from": "task-tracker",
+   "to": "reports",
+   "what": "пакетная выгрузка: файлом или постранично",
+   "handle": "POST /api/v1/exports/work-items",
+   "status": "файловая выгрузка требует согласования у отчётности",
+   "decide": "оставить файл или перейти на постраничное чтение"
+  },
+  {
+   "id": "NEED-08",
+   "from": "task-tracker",
+   "to": "infra",
+   "what": "очередь событий: клиент в сборке отсутствует",
+   "handle": "топики и права выданы",
+   "status": "публиковать нечем",
+   "decide": "кто добавляет клиент очереди в модуль"
+  },
+  {
+   "id": "NEED-09",
+   "from": "reference-manager",
+   "to": "все потребители",
+   "what": "подтверждение формата выгрузок и версии",
+   "handle": "POST /v1/{справочник}/export",
+   "status": "ответа нет ни от одной стороны",
+   "decide": "утвердить формат выгрузок"
+  },
+  {
+   "id": "NEED-10",
+   "from": "qa",
+   "to": "task-tracker",
+   "what": "учётная запись чтения и чтение задачи с комментариями",
+   "handle": "GET /work-items/{id}",
+   "status": "учётная запись не выдана",
+   "decide": "кто выдаёт учётную запись: учёт работ или инфраструктура"
+  },
+  {
+   "id": "NEED-11",
+   "from": "qa",
+   "to": "planning-system",
+   "what": "контекст релиза: релизы, вехи, эпики, фичи и проекция итераций",
+   "handle": "GET /api/v1/projects/{projectId}/release-context",
+   "status": "объявлена, кода нет",
+   "decide": "подтвердить срок реализации"
+  },
+  {
+   "id": "NEED-12",
+   "from": "qa",
+   "to": "reports",
+   "what": "приём пяти ресурсов для аналитического контура",
+   "handle": "GET /api/v1/reports/{resource}",
+   "status": "у тестирования выгрузки нет, у отчётности приёмник описан",
+   "decide": "кто и когда реализует выгрузку"
+  },
+  {
+   "id": "NEED-13",
+   "from": "reports",
+   "to": "planning-system",
+   "what": "партия плана и оперативная проекция",
+   "handle": "POST /api/v1/exports, GET .../projection",
+   "status": "подтверждено обеими сторонами",
+   "decide": "закрыть приёмку"
+  },
+  {
+   "id": "NEED-14",
+   "from": "reports",
+   "to": "task-tracker",
+   "what": "пять выгрузок под служебной ролью",
+   "handle": "GET /api/v1/reports/*",
+   "status": "готово, проверено на стенде",
+   "decide": "ничего"
+  },
+  {
+   "id": "NEED-15",
+   "from": "reports",
+   "to": "reference-manager",
+   "what": "кадровые наборы и выгрузки файлом",
+   "handle": "GET /v1/{справочник}/, POST /v1/{справочник}/export",
+   "status": "готово, сквозной прогон не показан",
+   "decide": "провести сквозной прогон"
+  },
+  {
+   "id": "NEED-16",
+   "from": "reports",
+   "to": "qa",
+   "what": "пять ресурсов с отбором по времени изменения",
+   "handle": "GET /api/v1/reports/{resource}",
+   "status": "источник пуст",
+   "decide": "назначить срок"
+  },
+  {
+   "id": "NEED-17",
+   "from": "reports",
+   "to": "заказчик",
+   "what": "толкование оперативного контура на реплике, база нормирования дефектов, доступ к чужим трудозатратам",
+   "handle": "нет",
+   "status": "решения нет",
+   "decide": "решает заказчик"
+  }
+ ],
+ "decisions": [
+  {
+   "id": "DEC-A",
+   "question": "Кто владеет контрактом факта между планированием и учётом работ: поставщик (учёт работ) или приёмник (планирование)?",
+   "now": "контракт планирования помечен в каталоге как предложение потребителя, а не контракт поставщика",
+   "options": [
+    "взять за основу спецификацию учёта работ и подписать mapping",
+    "оставить приёмник у планирования и привести его к спецификации поставщика"
+   ],
+   "owner": "планирование + учёт работ"
+  },
+  {
+   "id": "DEC-B",
+   "question": "Где делать выгрузку для отчётности у тестирования?",
+   "now": "объявлена у тестирования, ждёт отчётность",
+   "options": [
+    "делать у тестирования (постранично, по времени изменения)",
+    "отказаться и передать данные файлом через хранилище"
+   ],
+   "owner": "тестирование"
+  },
+  {
+   "id": "DEC-C",
+   "question": "Кто владеет сервисом оповещений о готовности данных?",
+   "now": "владельца нет ни у одной команды",
+   "options": [
+    "назначить владельцем инфраструктуру",
+    "закрыть очередь на стороне потребителя опросом"
+   ],
+   "owner": "заказчик + инфраструктура"
+  },
+  {
+   "id": "DEC-D",
+   "question": "Где приводить формат кадровых данных для учёта работ?",
+   "now": "ожидание учёта работ не совпадает с ответом справочников",
+   "options": [
+    "добавить у справочников представление под учёт работ",
+    "перевести учёт работ на текущий формат справочников"
+   ],
+   "owner": "справочники + учёт работ"
+  },
+  {
+   "id": "DEC-E",
+   "question": "Публикация плана: квитанции планирования или очередь инфраструктуры?",
+   "now": "у планирования есть свои точки публикации и квитанций",
+   "options": [
+    "оставить у планирования",
+    "перевести на очередь с теми же гарантиями"
+   ],
+   "owner": "планирование + инфраструктура"
+  },
+  {
+   "id": "DEC-F",
+   "question": "Мок-сервер для параллельной разработки: кто делает?",
+   "now": "описан, не реализован",
+   "options": [
+    "инфраструктура по своей дорожке",
+    "каждая команда на свой контракт"
+   ],
+   "owner": "инфраструктура + команды"
+  },
+  {
+   "id": "DEC-G",
+   "question": "Кто подключает отчётность к общему запуску всей системы?",
+   "now": "стенд отчётности поднимается отдельно, со своим входом",
+   "options": [
+    "инфраструктура добавляет её в общий файл подключения",
+    "отчётность сама приводит стенд к общей среде"
+   ],
+   "owner": "инфраструктура + отчётность"
+  }
+ ],
+ "infra_supplies": [
+  {
+   "id": "INFRA-01",
+   "item": "вход в систему",
+   "detail": "издатель токенов, 14 клиентов, набор ролей, ключи проверки подписи, жизненный цикл учётной записи"
+  },
+  {
+   "id": "INFRA-02",
+   "item": "очереди событий",
+   "detail": "брокер, топики и группы чтения по командам; состав событий определяют команды — каталога событий от них нет"
+  },
+  {
+   "id": "INFRA-03",
+   "item": "объектное хранилище",
+   "detail": "бакет на команду, отдельный ключ и политика доступа"
+  },
+  {
+   "id": "INFRA-04",
+   "item": "базы данных",
+   "detail": "база на команду, у отчётности — с репликой только для чтения; чужие базы закрыты"
+  },
+  {
+   "id": "INFRA-05",
+   "item": "телеметрия",
+   "detail": "приём сигналов и хранилище"
+  },
+  {
+   "id": "INFRA-06",
+   "item": "каталог контрактов",
+   "detail": "для каждой спецификации владелец, версия, базовый путь, признак «сервер есть / только документ»"
+  },
+  {
+   "id": "INFRA-07",
+   "item": "рабочие примеры интеграций",
+   "detail": "четыре вида обмена, проверяются одной командой"
+  },
+  {
+   "id": "INFRA-08",
+   "item": "мок-сервер",
+   "detail": "только описание, реализации в репозитории нет"
+  }
+ ],
+ "reviewer_questions": [
+  {
+   "id": "MY-01",
+   "to": "reports",
+   "question": "Предагрегация объявлена только у куба часов работ — это решение или незакрытая часть?",
+   "evidence": "в моделях куба объявление предагрегации встречается один раз (reports/pilots/cube/model/TimeLogs.js)",
+   "answer_kind": "решение с обоснованием либо предагрегации по остальным кубам",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-02",
+   "to": "reports",
+   "question": "Какая задержка от источника до отчёта у оперативного и аналитического контуров, и где она записана числом?",
+   "evidence": "расписание пересборки задано только у одного куба, описания задержки нет",
+   "answer_kind": "число и место в документе",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-03",
+   "to": "reports",
+   "question": "Почему общий вход отчётного слоя в куб разрешает только часы работ и как тогда на дашборды попадут план-факт и остальные отчёты?",
+   "evidence": "правило области в reports/pilots/cube/access.js; живая проверка: запрос плана-факта через вход отчётного слоя отклонён",
+   "answer_kind": "расширение доступа либо письменное ограничение",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-04",
+   "to": "reports",
+   "question": "Из 30 точек спецификации в исполняемом срезе работают четыре — какие точки будут реализованы к защите, включая выгрузку отчёта файлом?",
+   "evidence": "reports/api/openapi/v1/openapi.yaml против reports/pilots/api.py (здоровье и одна выгрузка)",
+   "answer_kind": "перечень точек со сроками",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-05",
+   "to": "reports",
+   "question": "Замер описывает один куб и тёплый режим, контейнерный стек не проверен — где числа по остальным кубам и по холодному старту?",
+   "evidence": "раздел docs: замедление заявлено как «только предагрегация», контейнерный стек не проверен",
+   "answer_kind": "таблица по кубам",
+   "priority": "до защиты"
+  },
+  {
+   "id": "MY-06",
+   "to": "task-tracker",
+   "question": "Где шаг миграций: при запуске общей сборкой схема не накатывается и служба падает на отсутствующей таблице. Кто отвечает за накат — модуль или среда?",
+   "evidence": "падение на отсутствующей таблице при чистой базе; в общем файле подключения шага миграций нет, у соседей он есть",
+   "answer_kind": "включить шаг миграций в запуск",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-07",
+   "to": "task-tracker",
+   "question": "Почему интерфейс требует узел с именем backend, которого в общей среде нет (служба называется иначе)?",
+   "evidence": "интерфейс завершается с ошибкой поиска узла в настройке веб-сервера",
+   "answer_kind": "исправить имя узла или добавить псевдоним",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-08",
+   "to": "task-tracker",
+   "question": "События заявлены, а клиента брокера в сборке службы нет — как публикуются события и что делает очередь недоставленных без брокера?",
+   "evidence": "в файле сборки службы нет зависимости брокера",
+   "answer_kind": "добавить клиент либо снять claim на события",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-09",
+   "to": "qa",
+   "question": "Общий вход влит — почему модуль остаётся в демонстрационном режиме и когда переключится на общий вход?",
+   "evidence": "в настройках модуля демонстрационный режим входа; в коде отмечено, что вход не выдан",
+   "answer_kind": "план переключения с датой",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-10",
+   "to": "qa",
+   "question": "Обязательные функции (экспорт и импорт кейсов, повтор упавших, массовая смена статусов, вложения) помечены как планируемые — какой объём и срок?",
+   "evidence": "перечень планируемых точек в их же спецификации",
+   "answer_kind": "объём и дата",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-11",
+   "to": "qa",
+   "question": "Кто и когда делает выгрузку пяти ресурсов для отчётности — от неё зависит аналитический контур?",
+   "evidence": "отчётность ждёт выгрузку, у тестирования она не реализована",
+   "answer_kind": "дата и ответственный",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-12",
+   "to": "reference-manager",
+   "question": "Два стенда — свой полный и база в общей среде: какой эталонный для защиты и что показывать?",
+   "evidence": "свой файл запуска (служба, интерфейс, свой вход) и база, подключённая в общую среду",
+   "answer_kind": "решение",
+   "priority": "до защиты"
+  },
+  {
+   "id": "MY-13",
+   "to": "reference-manager",
+   "question": "Интерфейс перенаправляет на порт 8080 независимо от настройки — это ошибка конфигурации или так задумано?",
+   "evidence": "ответ на корень интерфейса перенаправляет на чужой порт",
+   "answer_kind": "исправить либо объяснить",
+   "priority": "до защиты"
+  },
+  {
+   "id": "MY-14",
+   "to": "planning-system",
+   "question": "В файле запуска нет ни одного адреса соседей — обмены считаются несделанными или отложенными? Когда появятся реальные адреса?",
+   "evidence": "в файле запуска только база и CORS; отдельный файл с входом поднимает свой издатель токенов",
+   "answer_kind": "план с датой",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-15",
+   "to": "planning-system и task-tracker",
+   "question": "Кто владелец контракта факта: приёмник планирования или поставщик учёта работ?",
+   "evidence": "контракт приёмника помечен в каталоге как предложение потребителя, а не контракт поставщика",
+   "answer_kind": "подписать mapping и указать владельца",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-16",
+   "to": "planning-system и reference-manager",
+   "question": "Кадровые данные для расчёта ресурсов: кто выдаёт потребителю адрес и версию сервиса?",
+   "evidence": "в реестре планирования адрес и версия числятся невыданными",
+   "answer_kind": "выдать адрес и версию",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-17",
+   "to": "infra",
+   "question": "Кто закрепляет порты за командами: в разных файлах запуска совпадают 8080 и 8081, одновременно команды не поднимаются",
+   "evidence": "файлы запуска планирования, учёта работ, справочников и пилотного стенда отчётности",
+   "answer_kind": "распределить порты и записать в документах среды",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-18",
+   "to": "infra",
+   "question": "Общий запуск поднимает не всю систему (нет планирования, отчётности, службы справочников) — это ожидаемое состояние и когда будет полный набор?",
+   "evidence": "общий файл подключения содержит девять сервисов",
+   "answer_kind": "план и дата",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-19",
+   "to": "infra",
+   "question": "Кто ведёт сводный каталог событий? У команд есть свои перечни событий, сводного нет",
+   "evidence": "состав событий определён у команд, сводный перечень событий не собран",
+   "answer_kind": "назначить владельца сводного перечня",
+   "priority": "до защиты"
+  },
+  {
+   "id": "MY-20",
+   "to": "infra",
+   "question": "Мок-сервер для параллельной разработки описан, но не сделан — он ещё нужен по дорожке или снят?",
+   "evidence": "в папке моков только описание",
+   "answer_kind": "решение",
+   "priority": "до защиты"
+  },
+  {
+   "id": "MY-21",
+   "to": "все команды",
+   "question": "Обязательные сквозные проверки отсутствуют у всех — будут ли они и в какой форме?",
+   "evidence": "нет каталогов и инструментов сквозных проверок; исключение — проверка поднятого стенда в конвейере тестирования",
+   "answer_kind": "план",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-22",
+   "to": "все команды",
+   "question": "В реестрах вопросы без дат и ответственных — кто ведёт реестр и по какому признаку закрывает?",
+   "evidence": "реестры команд: значительная часть записей без даты и адресата",
+   "answer_kind": "правило ведения реестра",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-23",
+   "to": "заказчик",
+   "question": "«Core»: требования описывают пару «вход и Core», инфраструктура обосновала отказ решением ADR-008 — оставить требование или снять?",
+   "evidence": "решение инфраструктуры об отсутствии отдельного сервиса против формулировки требований",
+   "answer_kind": "решение",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-24",
+   "to": "заказчик",
+   "question": "Оперативный контур на реплике: чьё толкование верное — реплика общей базы или реплика собственной витрины?",
+   "evidence": "решение отчётности о реплике своей витрины против общей матрицы обмена",
+   "answer_kind": "решение",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-25",
+   "to": "заказчик",
+   "question": "Таймлайн вех не составлен — когда появится, чтобы команды планировали итерации?",
+   "evidence": "в требованиях отмечено, что таймлайн не составлен",
+   "answer_kind": "дата",
+   "priority": "сейчас"
+  },
+  {
+   "id": "MY-26",
+   "to": "заказчик",
+   "question": "Шаблон итогового отчёта отсутствует — когда и где он появится?",
+   "evidence": "шаблон обещан отдельно и пока не выдан",
+   "answer_kind": "шаблон",
+   "priority": "до защиты"
+  }
+ ]
+}
