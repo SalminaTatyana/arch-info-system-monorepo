@@ -5,7 +5,7 @@
   "branch": "main",
   "commit": "b161057"
  },
- "how_to_read": "endpoints — все точки API команды; integration=true означает, что точка нужна соседям; needs — что команда ждёт от соседей; decisions — что решить, чтобы понять, где делать ручку; reviewer_questions — вопросы проверяющего: команде, инфраструктуре и заказчику; infra_supplies — что отдаёт инфраструктура",
+ "how_to_read": "endpoints — все точки API команды; integration=true означает, что точка нужна соседям; needs — что команда ждёт от соседей; decisions — что решить, чтобы понять, где делать ручку; reviewer_questions — открытые вопросы к команде, инфраструктуре и заказчику; infra_supplies — что отдаёт инфраструктура",
  "modules": {
   "planning-system": {
    "name": "Модуль планирования",
